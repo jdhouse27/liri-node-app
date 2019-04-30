@@ -21,22 +21,22 @@ let UserInput = function() {
         axios.get(URL).then(function(response) {
 
         let jsonData = response.data
+
         // console.log(jsonData);
         for (let i = 0; i < jsonData.length; i++){
 
-        let concertData = [
+         let concertData = [
             "Name of Venue: " + jsonData[i].venue.name,
             "Venue Location: " + jsonData[i].venue.city,
-            "Date of Event: " + jsonData[i].datetime,
+            "Date of Event: " + moment(jsonData[i].datetime).format("MM/DD/YYYY"),
             ].join("\n");
-
-            // moment(concertData[2]).format(MM/DD/YYYY);
+          
 
         fs.appendFile("log.txt", concertData + divider, function(err) {
           if (err) throw err;
           console.log(concertData + divider);
         });
-        };
+      };
     });
   };
 
@@ -83,20 +83,26 @@ let UserInput = function() {
     });
   };
 
-    // this.findDoit = function (do) {
-        // let URL = "https://rest.bandsintown.com/artists/" + term + "/events?app_id=codingbootcamp";
-// 
-        // axios.get(URL).then(function(response) {
-// 
-        // let jsonData = response.data
-        // console.log(jasonData);
-// 
-        // fs.appendFile("log.txt", jasonData + divider, function(err) {
-        //   if (err) throw err;
-        //   console.log(showData);
-        // });
-    // });
-//   };
-}
+    this.findDoit = function (term) {
+        
+        let URL = "https://rest.bandsintown.com/artists/" + term + "/events?app_id=" + bands;
+ 
+        axios.get(URL).then(function(response) {
 
+          let jsonData = response.data
+          // console.log(jsonData);
+          let doItData = [
+             
+              ].join("\n");
+  
+              // moment(concertData[2]).format(MM/DD/YYYY);
+  
+          fs.readFile("random.txt", "utf8", function(err) {
+            if (err) throw err;
+            console.log(doItData + divider);
+          });
+    });
+  };
+
+}
 module.exports = UserInput;
